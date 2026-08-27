@@ -37,3 +37,5 @@ Production open-source package extending [FlexMeasures](https://github.com/FlexM
 ## 📄 License
 
 Licensed under the Apache License, Version 2.0.
+
+<!-- sync: 1787836796.695834 -->
