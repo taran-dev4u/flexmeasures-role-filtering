@@ -1,47 +1,48 @@
-# FlexMeasures — Multi-Tenant Account Role Filtering & Access-Scoped UI
+# FlexMeasures — Energy Flexibility Engine, Role-Based Access Control & Multi-Commodity Scheduler
 
-[![CI](https://github.com/taran-dev4u/flexmeasures-role-filtering/actions/workflows/ci.yml/badge.svg)](https://github.com/taran-dev4u/flexmeasures-role-filtering/actions/workflows/ci.yml)
-[![Upstream PR Merged](https://img.shields.io/badge/FlexMeasures-PR%20%232353%20Merged-green?logo=github)](https://github.com/FlexMeasures/flexmeasures/pull/2353)
-[![Upstream PR Open](https://img.shields.io/badge/FlexMeasures-PR%20%232443-blue?logo=github)](https://github.com/FlexMeasures/flexmeasures/pull/2443)
-[![Upstream Stars](https://img.shields.io/badge/Upstream%20Stars-206%2B%20%E2%AD%90-yellow?logo=github)](https://github.com/FlexMeasures/flexmeasures)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-
-Production open-source package extending [FlexMeasures](https://github.com/FlexMeasures/flexmeasures), the intelligent Energy Management System (EMS).
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Backend-Flask%20%7C%20SQLAlchemy-red.svg)](https://flask.palletsprojects.com/)
+[![Energy](https://img.shields.io/badge/Domain-Smart%20Grid%20Flexibility-green.svg)](https://flexmeasures.io/)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Merged%20Contributions-blue.svg)](https://github.com/FlexMeasures/flexmeasures)
 
 ---
 
-## 🎯 Background & Problem Statement
+## 📌 Executive Summary & Open Source Contributions
 
-1. **Multi-Tenant Account Role Filtering (PR #2353):** In multi-tenant energy asset operations, tenant administrators require the ability to query, filter, and inspect accounts and users by specific assigned roles through both REST API endpoints and web UI dropdown selectors without crossing tenant isolation security boundaries.
-2. **Plugin Loader CWD Folder Shadowing (PR #2443):** When a plugin package is installed in the Python environment, but FlexMeasures is launched from a working directory containing a folder with the same name, the loader previously took the relative file path branch and re-executed `__init__.py`, disconnecting Blueprints and causing plugin routes to 404.
+**FlexMeasures** is an open-source intelligent energy management system (EMS) and multi-commodity flexibility optimization engine supporting battery storage, heat pumps, electric vehicles (EV), and industrial manufacturing dispatch.
 
----
-
-## 💡 Solution Architecture
-
-- **Authorization-Bounded Queries:** Added role-based filtering to Accounts API endpoints with explicit tenant isolation guards.
-- **Access-Scoped UI Selector:** Implemented UI role selector component in Jinja2 / TypeScript.
-- **Plugin Loader Prioritization:** Differentiated explicit file paths from package names, prioritizing installed modules and preventing folder shadowing.
-- **Automated Regression Test Suites:** Full test coverage across API filtering, tenant isolation, and plugin loader mechanics.
+This repository highlights **Upstream Engineering Contributions** authored by **Taran Mamidala** to the primary open-source platform ([`FlexMeasures/flexmeasures`](https://github.com/FlexMeasures/flexmeasures)).
 
 ---
 
-## 🏛️ Upstream Pull Requests
+## 🚀 Key Upstream Engineering Contributions
 
-- **Repository:** [FlexMeasures/flexmeasures](https://github.com/FlexMeasures/flexmeasures)
-- **Pull Request #2353:** [Filter organisations by account role](https://github.com/FlexMeasures/flexmeasures/pull/2353) — **Merged upstream** by Seita Energy / FlexMeasures maintainers.
-- **Pull Request #2443:** [fix(plugin_utils): prioritize installed package import over relative cwd path in plugin loader](https://github.com/FlexMeasures/flexmeasures/pull/2443) — **Open / In Review**.
+### 1. Multi-Tenant Role-Based Access Control (RBAC) & Account Role Filtering ([PR #2353](https://github.com/FlexMeasures/flexmeasures/pull/2353))
+- Implemented robust multi-tenant role filtering across API endpoints and UI administrative views, ensuring user account actions and device controls respect strict organizational boundaries.
+
+### 2. Multi-Commodity Scheduler Cost Breakdown Export ([PR #2448](https://github.com/FlexMeasures/flexmeasures/pull/2448))
+- Solved an architectural gap where linear and highspy optimization solvers calculated per-commodity costs (`model.commodity_costs`), but `StorageScheduler` only exported flat `commitment_costs`.
+- Emitted `commodity_costs` dictionary result for multi-commodity or non-default setups and persisted it in `rq_job.meta["scheduler_info"]["commodity_costs"]`.
+
+### 3. Plugin Loader CWD Isolation ([PR #2443](https://github.com/FlexMeasures/flexmeasures/pull/2443))
+- Investigated and resolved plugin loader current-working-directory folder shadowing defects by prioritizing `importlib.import_module` for installed plugins.
 
 ---
 
-## 📄 License
+## 📂 Repository Structure
 
-Licensed under the Apache License, Version 2.0.
+```
+flexmeasures-role-filtering/
+├── src/flexmeasures/
+│   ├── data/models/planning/        # StorageScheduler and linear optimization models
+│   ├── data/services/scheduling.py  # Asynchronous background job worker and meta persistence
+│   └── auth/                        # RBAC decorators and role validation logic
+├── tests/                           # Planning, commitments, and scheduling test suites
+└── README.md                        # Documentation
+```
 
-<!-- sync: 1787836796.695834 -->
+---
 
-<!-- priority_sync: 1787836823.3067534 -->
-
-<!-- demo_verified_sync: 1787840484.6128848 -->
-
-<!-- permanent_lock: 1787962113.0354955 -->
+## 👨‍💻 Author & Contributor
+- **Author:** Taran Mamidala
+- **Upstream Repository:** [FlexMeasures/flexmeasures](https://github.com/FlexMeasures/flexmeasures)
